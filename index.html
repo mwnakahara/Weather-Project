@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Homework 5+ MWNakahara</title>
+    
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+    integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x"
+    crossorigin="anonymous"
+    />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+    href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+    rel="stylesheet"
+    />
+    <link rel="stylesheet" href="src/styles.css" />  
+  </head>
+
+  <body>
+    <div class="container">
+      <header name="today">
+        <h1>Today's weather forecast</h1>
+        <div class="row now">
+          <div class="col-2"></div>
+          <div class="col-2"></div>
+          <div class="col-2 symbol-now">🌦</div>
+          <div class="col-2 temp-today">
+            <div class="temp-now"> <span id="temp-now"></span><span id="unit-now"></span></div>
+            <div class="mm-today">max/min</div>
+            <div class="mmTemp-today">17°C/9°C</div>
+          </div>
+        </div>
+        <div class="city" id="current-city"></div>
+        <div class="date" id="current-date"></div>
+        <button class="current-location" id="current-location">use current location</button>
+      </header>
+
+      <section name="5-day">
+        <h2>5-day weather forecast</h2>
+
+        <div class="row next-day-all">
+          <div class="col next-day day1">
+            Monday
+            <br />
+            06/14
+          </div>
+          <div class="col next-day day2">
+            Tuesday
+            <br />
+            06/15
+          </div>
+          <div class="col next-day day3">
+            Wednesday
+            <br />
+            06/16
+          </div>
+          <div class="col next-day day4">
+            Thursday
+            <br />
+            06/17
+          </div>
+          <div class="col next-day day5">
+            Friday
+            <br />
+            06/18
+          </div>
+        </div>
+
+        <div class="row next-symbol-all">
+          <div class="col next-symbol symbol1">🌧</div>
+          <div class="col next-symbol symbol2">🌥</div>
+          <div class="col next-symbol symbol3">☁</div>
+          <div class="col next-symbol symbol4">☀</div>
+          <div class="col next-symbol symbol5">🌤</div>
+        </div>
+
+        <div class="row next-mm-all">
+          <div class="col next-mm">min/max</div>
+          <div class="col next-mm">min/max</div>
+          <div class="col next-mm">min/max</div>
+          <div class="col next-mm">min/max</div>
+          <div class="col next-mm">min/max</div>
+        </div>
+
+        <div class="row next-mmTemp-all">
+          <div class="col next-mmTemp mmTemp1">15°C/ 7°C</div>
+          <div class="col next-mmTemp mmTemp2">18°C/ 9°C</div>
+          <div class="col next-mmTemp mmTemp3">17°C/ 10°C</div>
+          <div class="col next-mmTemp mmTemp4">19°C/ 11°C</div>
+          <div class="col next-mmTemp mmTemp5">18°C/ 10°C</div>
+        </div>
+      </section>
+
+      <footer name="citySearch">
+        <div class="searchHeader">Search city:</div>
+        <form class="searchForm" id="city-search-form">
+          <input
+            type="text"
+            class="searchBar"
+            id="city-search-bar"
+            placeholder="Enter city"
+            autocomplete="off"
+          />
+          <input type="submit" value="Go" class="searchButton" />
+        </form>
+
+        <div class="conversion-line">
+          display in:
+          <br />
+          <button class="conversion-button" id="celsius-button">Celsius</button>
+          <button class="conversion-button" id="fahrenheit-button">
+            Fahrenheit
+          </button>
+        </div>
+      </footer>
+    </div>
+
+    <script src="src/index.js"></script>
+  </body>
+</html>

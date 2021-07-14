@@ -1,0 +1,138 @@
+body {
+  text-align: center;
+  display: block;
+  margin: 0 auto;
+  background: #50c4ed;
+}
+
+header,
+section,
+footer {
+  padding: 25px;
+}
+
+h1,
+h2,
+footer,
+.temp-today,
+.mm-today,
+.mmTemp-today,
+.next-day,
+.next-mm,
+.next-mmTemp {
+  font-family: "Raleway", sans-serif;
+}
+
+h1,
+h2 {
+  text-decoration: underline;
+  padding-bottom: 15px;
+}
+
+footer {
+  font-size: 17px;
+}
+
+.symbol-now {
+  font-size: 55px;
+  padding: 10px;
+  min-width: fit-content;
+}
+
+.temp-today {
+  padding: 10px;
+  min-width: fit-content;
+}
+
+.temp-now {
+  font-size: 30px;
+}
+
+.mm-today,
+.mmTemp-today {
+  font-size: 15px;
+  font-style: italic;
+  line-height: 0.5cm;
+}
+
+.city {
+  font-size: 30px;
+}
+
+.date {
+  font-size: 17px;
+}
+
+.current-location {
+  font-weight: 700;
+  font-size: 10px;
+  text-shadow: black;
+  border-radius: 10%;
+  color: #0091f2;
+  background-color: #ffb900;
+  margin-top: 15px;
+}
+
+.next-day-all,
+.next-mm-all,
+.next-mmTemp-all {
+  line-height: 0.5cm;
+  min-width: fit-content;
+}
+
+.next-symbol-all {
+  font-size: 25px;
+}
+
+.next-mm,
+.next-mmTemp {
+  font-size: 15px;
+  font-style: italic;
+  line-height: 0.5cm;
+}
+
+.next-mm-all {
+  padding-bottom: 0;
+}
+
+.next-mmTemp-all {
+  padding-top: 0;
+}
+
+.searchHeader {
+  margin-right: 155px;
+}
+
+.searchBar {
+  background: #fff;
+}
+
+.searchButton {
+  font-weight: 500;
+  text-shadow: black;
+  border-radius: 10%;
+  color: black;
+  background-color: #fce850;
+}
+
+.conversion-line {
+  font-weight: 600;
+  font-size: 12px;
+  padding-top: 5px;
+  font-style: italic;
+  color: #fce850;
+  text-align: right;
+}
+
+.conversion-button {
+  font-weight: 700;
+  font-size: 10px;
+  text-shadow: black;
+  border-radius: 10%;
+  color: #0091f2;
+  background-color: #ffb900;
+  margin-top: 5px;
+}
+.challenge5 {
+  background-color: #ffb900;
+}
