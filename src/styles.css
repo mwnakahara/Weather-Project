@@ -133,6 +133,12 @@ footer {
   background-color: #ffb900;
   margin-top: 5px;
 }
-.challenge5 {
-  background-color: #ffb900;
+
+.credit {
+  font-size: 10px;
+  text-align: left;
+}
+
+.git-link {
+  text-decoration-line: none;
 }
