@@ -40,6 +40,7 @@ function getDate() {
 }
 
 function changeToFahrenheit(event) {
+  let unitNextLines = document.querySelectorAll(".unit-next");
   let unitNowLine = document.querySelector("#unit-now");
   let unitNow = unitNowLine.innerHTML;
   if (unitNow === "℃") {
@@ -48,9 +49,11 @@ function changeToFahrenheit(event) {
     let tempNowFahrenheit = Math.round(tempNow * (9 / 5) + 32);
     tempNowLine.innerHTML = tempNowFahrenheit;
     unitNowLine.innerHTML = "℉";
+    unitNextLines.innerHTML = "℉";
   }
 }
 function changeToCelsius(event) {
+  let unitNextLines = document.querySelectorAll(".unit-next");
   let unitNowLine = document.querySelector("#unit-now");
   let unitNow = unitNowLine.innerHTML;
   if (unitNow === "℉") {
@@ -59,6 +62,7 @@ function changeToCelsius(event) {
     let tempNowCelsius = Math.round((tempNow - 32) * (5 / 9));
     tempNowLine.innerHTML = tempNowCelsius;
     unitNowLine.innerHTML = "℃";
+    unitNextLines.innerHTML = "℃";
   }
 }
 

@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Homework 6+ MWNakahara</title>
+    <title>Weather-Project for SheCodes+ by MWNakahara</title>
 
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <link
@@ -31,7 +31,8 @@
           <div class="col-2 symbol-now">🌦</div>
           <div class="col-2 temp-today">
             <div class="temp-now">
-              <span id="temp-now"></span><span id="unit-now"></span>
+              <span id="temp-now"></span
+              ><span class="unit unit-now" id="unit-now"></span>
             </div>
             <div class="mm-today">max/min</div>
             <div class="mmTemp-today">17°C/9°C</div>
@@ -84,19 +85,44 @@
         </div>
 
         <div class="row next-mm-all">
-          <div class="col next-mm">min/max</div>
-          <div class="col next-mm">min/max</div>
-          <div class="col next-mm">min/max</div>
-          <div class="col next-mm">min/max</div>
-          <div class="col next-mm">min/max</div>
+          <div class="col next-mm">max/min</div>
+          <div class="col next-mm">max/min</div>
+          <div class="col next-mm">max/min</div>
+          <div class="col next-mm">max/min</div>
+          <div class="col next-mm">max/min</div>
         </div>
 
         <div class="row next-mmTemp-all">
-          <div class="col next-mmTemp mmTemp1">15°C/ 7°C</div>
-          <div class="col next-mmTemp mmTemp2">18°C/ 9°C</div>
-          <div class="col next-mmTemp mmTemp3">17°C/ 10°C</div>
-          <div class="col next-mmTemp mmTemp4">19°C/ 11°C</div>
-          <div class="col next-mmTemp mmTemp5">18°C/ 10°C</div>
+          <div class="col next-mmTemp mmTemp1">
+            15<span class="unit unit-next">°C</span>/ 7<span
+              class="unit unit-next"
+              >°C</span
+            >
+          </div>
+          <div class="col next-mmTemp mmTemp2">
+            18<span class="unit unit-next">°C</span>/ 9<span
+              class="unit unit-next"
+              >°C</span
+            >
+          </div>
+          <div class="col next-mmTemp mmTemp3">
+            17<span class="unit unit-next">°C</span>/ 10<span
+              class="unit unit-next"
+              >°C</span
+            >
+          </div>
+          <div class="col next-mmTemp mmTemp4">
+            19<span class="unit unit-next">°C</span>/ 11<span
+              class="unit unit-next"
+              >°C</span
+            >
+          </div>
+          <div class="col next-mmTemp mmTemp5">
+            18<span class="unit unit-next">°C</span>/ 10<span
+              class="unit unit-next"
+              >°C</span
+            >
+          </div>
         </div>
       </section>
 
