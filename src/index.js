@@ -210,5 +210,5 @@ celsiusButton.addEventListener("click", changeToCelsius);
 
 defaultScreen();
 
-// get Time from API
+// (get Time from API)
 // (remove unnecessary classes [HTML])
