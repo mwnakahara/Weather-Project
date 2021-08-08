@@ -90,7 +90,6 @@ function displayTemperature(response) {
   let newTempMin = Math.round(response.data.main.temp_min);
 
   let unitNowLine = document.querySelector("#unit-now");
-
   if (unitNowLine.innerHTML === "℃") {
     celsiusTemp = newTemp;
     celsiusTempMax = newTempMax;
@@ -128,6 +127,12 @@ function displayTemperature(response) {
   descriptionLine.innerHTML = description;
   humidityLine.innerHTML = humidity;
   windSpeedLine.innerHTML = windSpeed.toFixed(1);
+
+  let symbolCode = response.data.weather[0].icon;
+  let symbolURL = `http://openweathermap.org/img/wn/${symbolCode}@2x.png`;
+  let symbolLine = document.querySelector("#symbol-now");
+  symbolLine.setAttribute("src", symbolURL);
+  symbolLine.setAttribute("alt", description);
 
   let newCity = response.data.name;
   let cityLine = document.querySelector("#current-city");
@@ -206,5 +211,4 @@ celsiusButton.addEventListener("click", changeToCelsius);
 defaultScreen();
 
 // get Time from API
-// icon
 // (remove unnecessary classes [HTML])
