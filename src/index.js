@@ -41,87 +41,87 @@ function getDate() {
 
 function changeToFahrenheit(event) {
   let unitNowLine = document.querySelector("#unit-now");
-  let unitNow = unitNowLine.innerHTML;
+  let unitNowMaxLine = document.querySelector("#unit-maxTemp-today");
+  let unitNowMinLine = document.querySelector("#unit-minTemp-today");
 
-  if (unitNow === "℃") {
-    let unitNowMaxLine = document.querySelector("#unit-maxTemp-today");
-    let unitNowMinLine = document.querySelector("#unit-minTemp-today");
+  unitNowLine.innerHTML = "℉";
+  unitNowMaxLine.innerHTML = "℉";
+  unitNowMinLine.innerHTML = "℉";
 
-    unitNowLine.innerHTML = "℉";
-    unitNowMaxLine.innerHTML = "℉";
-    unitNowMinLine.innerHTML = "℉";
+  let tempNowLine = document.querySelector("#temp-now");
+  let tempNowMaxLine = document.querySelector("#maxTemp-today");
+  let tempNowMinLine = document.querySelector("#minTemp-today");
 
-    let tempNowLine = document.querySelector("#temp-now");
-    let tempNowMaxLine = document.querySelector("#maxTemp-today");
-    let tempNowMinLine = document.querySelector("#minTemp-today");
-    console.log(tempNowMaxLine.innerHTML);
+  fahrenheitTemp = Math.round(celsiusTemp * (9 / 5) + 32);
+  fahrenheitTempMax = Math.round(celsiusTempMax * (9 / 5) + 32);
+  fahrenheitTempMin = Math.round(celsiusTempMin * (9 / 5) + 32);
 
-    fahrenheitTemp = Math.round(celsiusTemp * (9 / 5) + 32);
-    fahrenheitTempMax = Math.round(celsiusTempMax * (9 / 5) + 32);
-    fahrenheitTempMin = Math.round(celsiusTempMin * (9 / 5) + 32);
-
-    console.log(fahrenheitTempMin);
-
-    tempNowLine.innerHTML = fahrenheitTemp;
-    tempNowMaxLine.innerHTML = fahrenheitTempMax;
-    tempNowMinLine.innerHTML = fahrenheitTempMin;
-  }
+  tempNowLine.innerHTML = fahrenheitTemp;
+  tempNowMaxLine.innerHTML = fahrenheitTempMax;
+  tempNowMinLine.innerHTML = fahrenheitTempMin;
 }
+
 function changeToCelsius(event) {
   let unitNowLine = document.querySelector("#unit-now");
-  let unitNow = unitNowLine.innerHTML;
+  let unitNowMaxLine = document.querySelector("#unit-maxTemp-today");
+  let unitNowMinLine = document.querySelector("#unit-minTemp-today");
 
-  if (unitNow === "℉") {
-    let unitNowMaxLine = document.querySelector("#unit-maxTemp-today");
-    let unitNowMinLine = document.querySelector("#unit-minTemp-today");
+  unitNowLine.innerHTML = "℃";
+  unitNowMaxLine.innerHTML = "℃";
+  unitNowMinLine.innerHTML = "℃";
 
-    unitNowLine.innerHTML = "℃";
-    unitNowMaxLine.innerHTML = "℃";
-    unitNowMinLine.innerHTML = "℃";
+  let tempNowLine = document.querySelector("#temp-now");
+  let tempNowMaxLine = document.querySelector("#maxTemp-today");
+  let tempNowMinLine = document.querySelector("#minTemp-today");
 
-    let tempNowLine = document.querySelector("#temp-now");
-    let tempNowMaxLine = document.querySelector("#maxTemp-today");
-    let tempNowMinLine = document.querySelector("#minTemp-today");
+  celsiusTemp = Math.round(((fahrenheitTemp - 32) * 5) / 9);
+  celsiusTempMax = Math.round(((fahrenheitTempMax - 32) * 5) / 9);
+  celsiusTempMin = Math.round(((fahrenheitTempMin - 32) * 5) / 9);
 
-    tempNowLine.innerHTML = celsiusTemp;
-    tempNowMaxLine.innerHTML = celsiusTempMax;
-    tempNowMinLine.innerHTML = celsiusTempMin;
-  }
+  tempNowLine.innerHTML = celsiusTemp;
+  tempNowMaxLine.innerHTML = celsiusTempMax;
+  tempNowMinLine.innerHTML = celsiusTempMin;
 }
 
 function displayTemperature(response) {
   console.log(response);
+  let newTemp = Math.round(response.data.main.temp);
+  let newTempMax = Math.round(response.data.main.temp_max);
+  let newTempMin = Math.round(response.data.main.temp_min);
 
   let unitNowLine = document.querySelector("#unit-now");
+
   if (unitNowLine.innerHTML === "℃") {
-    celsiusTemp = Math.round(response.data.main.temp);
+    celsiusTemp = newTemp;
+    celsiusTempMax = newTempMax;
+    celsiusTempMin = newTempMin;
+
     let tempNowLine = document.querySelector("#temp-now");
-    tempNowLine.innerHTML = celsiusTemp;
-
-    celsiusTempMax = Math.round(response.data.main.temp_max);
     let nextMaxTempLine = document.querySelector("#maxTemp-today");
-    nextMaxTempLine.innerHTML = celsiusTempMax;
-
-    celsiusTempMin = Math.round(response.data.main.temp_min);
     let nextMinTempLine = document.querySelector("#minTemp-today");
+
+    tempNowLine.innerHTML = celsiusTemp;
+    nextMaxTempLine.innerHTML = celsiusTempMax;
     nextMinTempLine.innerHTML = celsiusTempMin;
   } else {
-    fahrenheitTemp = Math.round(response.data.main.temp);
+    fahrenheitTemp = newTemp;
+    fahrenheitTempMax = newTempMax;
+    fahrenheitTempMin = newTempMin;
+
     let tempNowLine = document.querySelector("#temp-now");
-    tempNowLine.innerHTML = fahrenheitTemp;
-
-    fahrenheitTempMax = Math.round(response.data.main.temp_max);
     let nextMaxTempLine = document.querySelector("#maxTemp-today");
-    nextMaxTempLine.innerHTML = fahrenheitTempMax;
-
-    fahrenheitTempMin = Math.round(response.data.main.temp_min);
     let nextMinTempLine = document.querySelector("#minTemp-today");
+
+    tempNowLine.innerHTML = fahrenheitTemp;
+    nextMaxTempLine.innerHTML = fahrenheitTempMax;
     nextMinTempLine.innerHTML = fahrenheitTempMin;
   }
 
   let newCity = response.data.name;
   let cityLine = document.querySelector("#current-city");
   cityLine.innerHTML = newCity;
+
+  let humidity = response;
 
   let searchInput = document.querySelector("#city-search-bar");
   searchInput.value = null;
@@ -149,7 +149,8 @@ function retrieveLocation(position) {
   let longitude = position.coords.longitude;
   let apiKey = "aeba3e6df17f742792c4f3a90b3720ad";
   let unitNowLine = document.querySelector("#unit-now");
-  let unit = "metric";
+  let unit = null;
+
   if (unitNowLine.innerHTML === "℃") {
     unit = "metric";
   } else {
