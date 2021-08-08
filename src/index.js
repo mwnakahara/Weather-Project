@@ -117,11 +117,21 @@ function displayTemperature(response) {
     nextMinTempLine.innerHTML = fahrenheitTempMin;
   }
 
+  let description = response.data.weather[0].main;
+  let humidity = response.data.main.humidity;
+  let windSpeed = response.data.wind.speed;
+
+  let descriptionLine = document.querySelector("#description");
+  let humidityLine = document.querySelector("#humidity");
+  let windSpeedLine = document.querySelector("#windSpeed");
+
+  descriptionLine.innerHTML = description;
+  humidityLine.innerHTML = humidity;
+  windSpeedLine.innerHTML = windSpeed.toFixed(1);
+
   let newCity = response.data.name;
   let cityLine = document.querySelector("#current-city");
   cityLine.innerHTML = newCity;
-
-  let humidity = response;
 
   let searchInput = document.querySelector("#city-search-bar");
   searchInput.value = null;
@@ -196,6 +206,5 @@ celsiusButton.addEventListener("click", changeToCelsius);
 defaultScreen();
 
 // get Time from API
-// humidity & wind speed
-// (simplify unit conversion)
+// icon
 // (remove unnecessary classes [HTML])

@@ -26,21 +26,26 @@
       <header name="today">
         <h1>Today's weather forecast</h1>
         <div class="row now">
-          <div class="col-2"></div>
-          <div class="col-2"></div>
-          <div class="col-2 symbol-now">🌦</div>
-          <div class="col-2 temp-today">
+          <div class="col temp-today">
             <div class="temp-now">
               <span id="temp-now"></span
               ><span class="unit unit-now" id="unit-now"></span>
             </div>
             <div class="mm-today">max/min</div>
             <div class="mmTemp-today">
-              <span id="maxTemp-today">17</span>
-              <span id="unit-maxTemp-today">°C</span>/
-              <span id="minTemp-today">9</span>
-              <span id="unit-minTemp-today">°C</span>
+              <span id="maxTemp-today">17</span
+              ><span id="unit-maxTemp-today">°C</span>/
+              <span id="minTemp-today">9</span
+              ><span id="unit-minTemp-today">°C</span>
             </div>
+          </div>
+          <div class="col symbol-now">🌦</div>
+          <div class="col additional-data">
+            <ul>
+              <li id="description">Clear</li>
+              <li>Humidity: <span id="humidity">0</span>%</li>
+              <li>Wind Speed: <span id="windSpeed">0</span>km/h</li>
+            </ul>
           </div>
         </div>
         <div class="city" id="current-city"></div>

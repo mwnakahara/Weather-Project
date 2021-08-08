@@ -14,6 +14,7 @@ footer {
 h1,
 h2,
 footer,
+.additional-data,
 .temp-today,
 .mm-today,
 .mmTemp-today,
@@ -33,15 +34,33 @@ footer {
   font-size: 17px;
 }
 
+ul {
+  margin-bottom: 0;
+  padding-left: 0;
+  padding-top: 15px;
+}
+
+li {
+  list-style-type: none;
+  font-size: 17px;
+  line-height: 0.5cm;
+  font-style: italic;
+  text-align: left;
+}
+
 .symbol-now {
   font-size: 55px;
   padding: 10px;
   min-width: fit-content;
 }
 
+.additional-data,
 .temp-today {
   padding: 10px;
   min-width: fit-content;
+}
+.temp-today {
+  text-align: right;
 }
 
 .temp-now {
