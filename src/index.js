@@ -116,7 +116,7 @@ function displayTemperature(response) {
     nextMinTempLine.innerHTML = fahrenheitTempMin;
   }
 
-  let description = response.data.weather[0].main;
+  let description = response.data.weather[0].description;
   let humidity = response.data.main.humidity;
   let windSpeed = response.data.wind.speed;
 
