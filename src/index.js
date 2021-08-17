@@ -210,5 +210,6 @@ celsiusButton.addEventListener("click", changeToCelsius);
 
 defaultScreen();
 
+// add windSpeedUnit conversion .metric m/s. to .imperial mph.
 // (get Time from API)
 // (remove unnecessary classes [HTML])

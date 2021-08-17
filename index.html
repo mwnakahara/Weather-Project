@@ -29,7 +29,7 @@
           <div class="col temp-today">
             <div class="temp-now">
               <span id="temp-now"></span
-              ><span class="unit unit-now" id="unit-now"></span>
+              ><span id="unit-now"></span>
             </div>
             <div class="mm-today">max/min</div>
             <div class="mmTemp-today">
@@ -46,7 +46,10 @@
             <ul>
               <li id="description">Clear</li>
               <li>Humidity: <span id="humidity">0</span>%</li>
-              <li>Wind Speed: <span id="windSpeed">0</span>km/h</li>
+              <li>
+                Wind Speed: <span id="windSpeed">0</span
+                ><span id="windSpeedUnit">m/s</span>
+              </li>
             </ul>
           </div>
         </div>
@@ -61,81 +64,25 @@
         <h2>5-day weather forecast</h2>
 
         <div class="row next-day-all">
-          <div class="col next-day day1">
-            Monday
-            <br />
-            06/14
-          </div>
-          <div class="col next-day day2">
-            Tuesday
-            <br />
-            06/15
-          </div>
-          <div class="col next-day day3">
-            Wednesday
-            <br />
-            06/16
-          </div>
-          <div class="col next-day day4">
-            Thursday
-            <br />
-            06/17
-          </div>
-          <div class="col next-day day5">
-            Friday
-            <br />
-            06/18
+          <div class="col next-day">
+            <div id="weekday-next">Monday</div>
+            <div id="date-next">06/14</div>
           </div>
         </div>
-
+         
         <div class="row next-symbol-all">
-          <div class="col next-symbol symbol1">🌧</div>
-          <div class="col next-symbol symbol2">🌥</div>
-          <div class="col next-symbol symbol3">☁</div>
-          <div class="col next-symbol symbol4">☀</div>
-          <div class="col next-symbol symbol5">🌤</div>
+          <div class="col" id="symbol-next">🌧</div>
         </div>
 
         <div class="row next-mm-all">
           <div class="col next-mm">max/min</div>
-          <div class="col next-mm">max/min</div>
-          <div class="col next-mm">max/min</div>
-          <div class="col next-mm">max/min</div>
-          <div class="col next-mm">max/min</div>
         </div>
 
         <div class="row next-mmTemp-all">
-          <div class="col next-mmTemp mmTemp1">
-            15<span class="unit unit-next">°C</span>/ 7<span
-              class="unit unit-next"
-              >°C</span
-            >
-          </div>
-          <div class="col next-mmTemp mmTemp2">
-            18<span class="unit unit-next">°C</span>/ 9<span
-              class="unit unit-next"
-              >°C</span
-            >
-          </div>
-          <div class="col next-mmTemp mmTemp3">
-            17<span class="unit unit-next">°C</span>/ 10<span
-              class="unit unit-next"
-              >°C</span
-            >
-          </div>
-          <div class="col next-mmTemp mmTemp4">
-            19<span class="unit unit-next">°C</span>/ 11<span
-              class="unit unit-next"
-              >°C</span
-            >
-          </div>
-          <div class="col next-mmTemp mmTemp5">
-            18<span class="unit unit-next">°C</span>/ 10<span
-              class="unit unit-next"
-              >°C</span
-            >
-          </div>
-        </div>
+          <div class="col next-mmTemp">
+            <span id="max-next">15</span><span id="unit-maxTemp-next">°C</span><span>/ </span>
+            <span id="min-next">7</span><span id="unit-minTemp-next">°C</span></div>
+          
       </section>
 
       <footer name="citySearch">
