@@ -83,8 +83,64 @@ function changeToCelsius(event) {
   tempNowMinLine.innerHTML = celsiusTempMin;
 }
 
-function displayTemperature(response) {
+function getForecast(coordinates) {
+  let latitude = coordinates.lat;
+  let longitude = coordinates.lon;
+  let apiKey = "aeba3e6df17f742792c4f3a90b3720ad";
+
+  let unitNowLine = document.querySelector("#unit-now");
+  let unit = "";
+  if (unitNowLine.innerHTML === "℃") {
+    unit = "metric";
+  } else {
+    unit = "imperial";
+  }
+
+  let urlForecastAPI = `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=${unit}`;
+  axios.get(urlForecastAPI).then(displayForecast);
+}
+
+function displayForecast(response) {
   console.log(response);
+
+  let date = response.data.current.dt;
+  let temp = Math.round(response.data.current.temp);
+  let symbolNext = "☀";
+
+  let unitNowLine = document.querySelector("#unit-now");
+  let unit = "";
+  if (unitNowLine.innerHTML === "℃") {
+    unit = "℃";
+  } else {
+    unit = "℉";
+  }
+
+  let forecastLine = document.querySelector("#forecast");
+  let forecastHTML = "";
+  forecastHTML += `<div class="row next-day-all">
+          <div class="col next-day">
+            <div id="weekday-next">${date}</div>
+            <div id="date-next">${date}</div>
+          </div>
+        </div>
+         
+        <div class="row next-symbol-all">
+          <div class="col" id="symbol-next">${symbolNext}</div>
+        </div>
+
+        <div class="row next-mm-all">
+          <div class="col next-mm">max/min</div>
+        </div>
+
+        <div class="row next-mmTemp-all">
+          <div class="col next-mmTemp">
+            <span id="max-next">${temp}</span><span id="unit-maxTemp-next">${unit}</span><span>/ </span>
+            <span id="min-next">${temp}</span><span id="unit-minTemp-next">${unit}</span></div>`;
+
+  forecastLine.innerHTML = forecastHTML;
+}
+
+function displayTemperature(response) {
   let newTemp = Math.round(response.data.main.temp);
   let newTempMax = Math.round(response.data.main.temp_max);
   let newTempMin = Math.round(response.data.main.temp_min);
@@ -138,6 +194,9 @@ function displayTemperature(response) {
   let cityLine = document.querySelector("#current-city");
   cityLine.innerHTML = newCity;
 
+  let coordinates = response.data.coord;
+  getForecast(coordinates);
+
   let searchInput = document.querySelector("#city-search-bar");
   searchInput.value = null;
 }
@@ -149,7 +208,7 @@ function searchCity(event) {
   let newCity = searchInput.value;
   let apiKey = "aeba3e6df17f742792c4f3a90b3720ad";
   let unitNowLine = document.querySelector("#unit-now");
-  let unit = "metric";
+  let unit = "";
   if (unitNowLine.innerHTML === "℃") {
     unit = "metric";
   } else {
@@ -210,6 +269,5 @@ celsiusButton.addEventListener("click", changeToCelsius);
 
 defaultScreen();
 
-// add windSpeedUnit conversion .metric m/s. to .imperial mph.
 // (get Time from API)
 // (remove unnecessary classes [HTML])
