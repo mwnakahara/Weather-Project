@@ -32,6 +32,29 @@ function getDate() {
   dateLine.innerHTML = `${currentDate} <small>${currentTime}</small>`;
 }
 
+function convertWeekday(timestamp) {
+  let forecastDate = new Date(timestamp * 1000);
+  let weekdays = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+  let weekday = weekdays[forecastDate.getDay()];
+  return weekday;
+}
+
+function convertDate(timestamp) {
+  let forecastDate = new Date(timestamp * 1000);
+  let date = makeBinary(forecastDate.getDate());
+  let month = makeBinary(forecastDate.getMonth() + 1);
+  let nextDate = `${month}/${date}`;
+  return nextDate;
+}
+
 function decideUnit() {
   let unitNowLine = document.querySelector("#unit-now");
   if (unitNowLine.innerHTML === "℃") {
@@ -61,6 +84,8 @@ function changeToFahrenheit(event) {
   tempNowLine.innerHTML = fahrenheitTemp;
   tempNowMaxLine.innerHTML = fahrenheitTempMax;
   tempNowMinLine.innerHTML = fahrenheitTempMin;
+
+  convertForecast();
 }
 
 function changeToCelsius(event) {
@@ -83,42 +108,37 @@ function changeToCelsius(event) {
   tempNowLine.innerHTML = celsiusTemp;
   tempNowMaxLine.innerHTML = celsiusTempMax;
   tempNowMinLine.innerHTML = celsiusTempMin;
+
+  convertForecast();
 }
 
-function convertWeekday(timestamp) {
-  let forecastDate = new Date(timestamp * 1000);
-  let weekdays = [
-    "Sunday",
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
-  ];
-  let weekday = weekdays[forecastDate.getDay()];
-  return weekday;
+function convertForecast() {
+  let cityLine = document.querySelector("#current-city");
+  let city = cityLine.innerHTML;
+  let apiKey = "aeba3e6df17f742792c4f3a90b3720ad";
+  let unit = decideUnit();
+  let urlWeatherAPI = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=${unit}`;
+  axios.get(urlWeatherAPI).then(updateForecast);
 }
 
-function convertDate(timestamp) {
-  let forecastDate = new Date(timestamp * 1000);
-  let date = makeBinary(forecastDate.getDate());
-  let month = makeBinary(forecastDate.getMonth() + 1);
-  let nextDate = `${month}/${date}`;
-  return nextDate;
+function updateForecast(response) {
+  console.log(response);
+  let latitude = response.data.coord.lat;
+  let longitude = response.data.coord.lon;
+  let apiKey = "aeba3e6df17f742792c4f3a90b3720ad";
+  let unit = decideUnit();
+  let urlForecastAPI = `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=${unit}`;
+  axios.get(urlForecastAPI).then(displayForecast);
 }
 
 function displayForecast(response) {
-  console.log(response);
   let forecast = response.data.daily;
-
   let unit = decideUnit();
   if (unit === "metric") {
     unit = "℃";
   } else {
     unit = "℉";
   }
-
   let forecastLine = document.querySelector("#forecast");
   let forecastHTML = `<div class="row">`;
 
