@@ -122,7 +122,6 @@ function convertForecast() {
 }
 
 function updateForecast(response) {
-  console.log(response);
   let latitude = response.data.coord.lat;
   let longitude = response.data.coord.lon;
   let apiKey = "aeba3e6df17f742792c4f3a90b3720ad";
@@ -183,6 +182,8 @@ function getForecast(coordinates) {
 }
 
 function displayTemperature(response) {
+  console.log(response);
+
   let newTemp = Math.round(response.data.main.temp);
   let newTempMax = Math.round(response.data.main.temp_max);
   let newTempMin = Math.round(response.data.main.temp_min);
@@ -233,8 +234,9 @@ function displayTemperature(response) {
   symbolLine.setAttribute("alt", description);
 
   let newCity = response.data.name;
+  let countryCode = response.data.sys.country;
   let cityLine = document.querySelector("#current-city");
-  cityLine.innerHTML = newCity;
+  cityLine.innerHTML = `${newCity}, ${countryCode}`;
 
   let coordinates = response.data.coord;
   getForecast(coordinates);
