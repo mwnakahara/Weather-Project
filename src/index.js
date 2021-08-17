@@ -1,22 +1,20 @@
 function makeBinary(value) {
+  let binaryValue = "";
   if (value < 10) {
-    let binaryValue = `0${value}`;
-    return binaryValue;
+    binaryValue = `0${value}`;
   } else {
-    let binaryValue = `${value}`;
-    return binaryValue;
+    binaryValue = `${value}`;
   }
+  return binaryValue;
 }
 
 function getDate() {
   let today = new Date();
-  let minutesToday = today.getMinutes();
-  let hoursToday = today.getHours();
-
-  let dateToday = today.getDate();
-  let monthToday = today.getMonth() + 1;
-  let yearToday = today.getFullYear();
-
+  let minutes = makeBinary(today.getMinutes());
+  let hours = makeBinary(today.getHours());
+  let day = makeBinary(today.getDate());
+  let month = makeBinary(today.getMonth() + 1);
+  let year = today.getFullYear();
   let weekdays = [
     "Sunday",
     "Monday",
@@ -26,17 +24,21 @@ function getDate() {
     "Friday",
     "Saturday",
   ];
-  let dayToday = weekdays[today.getDay()];
+  let weekday = weekdays[today.getDay()];
 
-  let minutesBinary = makeBinary(minutesToday);
-  let currentTime = `${hoursToday}:${minutesBinary}`;
-
-  let monthBinary = makeBinary(monthToday);
-  let dateBinary = makeBinary(dateToday);
-  let currentDate = `${dayToday} ${yearToday}/${monthBinary}/${dateBinary}`;
-
+  let currentTime = `${hours}:${minutes}`;
+  let currentDate = `${weekday} ${year}/${month}/${day}`;
   let dateLine = document.querySelector("#current-date");
   dateLine.innerHTML = `${currentDate} <small>${currentTime}</small>`;
+}
+
+function decideUnit() {
+  let unitNowLine = document.querySelector("#unit-now");
+  if (unitNowLine.innerHTML === "℃") {
+    return "metric";
+  } else {
+    return "imperial";
+  }
 }
 
 function changeToFahrenheit(event) {
@@ -83,33 +85,43 @@ function changeToCelsius(event) {
   tempNowMinLine.innerHTML = celsiusTempMin;
 }
 
-function getForecast(coordinates) {
-  let latitude = coordinates.lat;
-  let longitude = coordinates.lon;
-  let apiKey = "aeba3e6df17f742792c4f3a90b3720ad";
+function convertWeekday(timestamp) {
+  let forecastDate = new Date(timestamp * 1000);
+  let weekdays = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+  let weekday = weekdays[forecastDate.getDay()];
+  return weekday;
+}
 
-  let unitNowLine = document.querySelector("#unit-now");
-  let unit = "";
-  if (unitNowLine.innerHTML === "℃") {
-    unit = "metric";
-  } else {
-    unit = "imperial";
-  }
-
-  let urlForecastAPI = `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=${unit}`;
-  axios.get(urlForecastAPI).then(displayForecast);
+function convertDate(timestamp) {
+  let forecastDate = new Date(timestamp * 1000);
+  let date = makeBinary(forecastDate.getDate());
+  let month = makeBinary(forecastDate.getMonth() + 1);
+  let nextDate = `${month}/${date}`;
+  return nextDate;
 }
 
 function displayForecast(response) {
   console.log(response);
+  let forecast = response.data.daily[0];
+  let date = convertDate(forecast.dt);
+  let weekday = convertWeekday(forecast.dt);
 
-  let date = response.data.current.dt;
-  let temp = Math.round(response.data.current.temp);
-  let symbolNext = "☀";
+  let maxTemp = Math.round(forecast.temp.max);
+  let minTemp = Math.round(forecast.temp.min);
 
-  let unitNowLine = document.querySelector("#unit-now");
-  let unit = "";
-  if (unitNowLine.innerHTML === "℃") {
+  let symbolNext = `https://openweathermap.org/img/wn/${forecast.weather[0].icon}@2x.png`;
+  let description = forecast.weather[0].desription;
+
+  let unit = decideUnit();
+  if (unit === "metric") {
     unit = "℃";
   } else {
     unit = "℉";
@@ -119,13 +131,13 @@ function displayForecast(response) {
   let forecastHTML = "";
   forecastHTML += `<div class="row next-day-all">
           <div class="col next-day">
-            <div id="weekday-next">${date}</div>
+            <div id="weekday-next">${weekday}</div>
             <div id="date-next">${date}</div>
           </div>
         </div>
          
         <div class="row next-symbol-all">
-          <div class="col" id="symbol-next">${symbolNext}</div>
+          <div class="col"><img src="${symbolNext}" alt="${description}" id="symbol-next" /></div>
         </div>
 
         <div class="row next-mm-all">
@@ -134,10 +146,20 @@ function displayForecast(response) {
 
         <div class="row next-mmTemp-all">
           <div class="col next-mmTemp">
-            <span id="max-next">${temp}</span><span id="unit-maxTemp-next">${unit}</span><span>/ </span>
-            <span id="min-next">${temp}</span><span id="unit-minTemp-next">${unit}</span></div>`;
+            <span id="max-next">${maxTemp}</span><span id="unit-maxTemp-next">${unit}</span><span>/ </span>
+            <span id="min-next">${minTemp}</span><span id="unit-minTemp-next">${unit}</span></div>`;
 
   forecastLine.innerHTML = forecastHTML;
+}
+
+function getForecast(coordinates) {
+  let latitude = coordinates.lat;
+  let longitude = coordinates.lon;
+  let apiKey = "aeba3e6df17f742792c4f3a90b3720ad";
+  let unit = decideUnit();
+
+  let urlForecastAPI = `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=${unit}`;
+  axios.get(urlForecastAPI).then(displayForecast);
 }
 
 function displayTemperature(response) {
@@ -152,24 +174,24 @@ function displayTemperature(response) {
     celsiusTempMin = newTempMin;
 
     let tempNowLine = document.querySelector("#temp-now");
-    let nextMaxTempLine = document.querySelector("#maxTemp-today");
-    let nextMinTempLine = document.querySelector("#minTemp-today");
+    let newMaxTempLine = document.querySelector("#maxTemp-today");
+    let newMinTempLine = document.querySelector("#minTemp-today");
 
     tempNowLine.innerHTML = celsiusTemp;
-    nextMaxTempLine.innerHTML = celsiusTempMax;
-    nextMinTempLine.innerHTML = celsiusTempMin;
+    newMaxTempLine.innerHTML = celsiusTempMax;
+    newMinTempLine.innerHTML = celsiusTempMin;
   } else {
     fahrenheitTemp = newTemp;
     fahrenheitTempMax = newTempMax;
     fahrenheitTempMin = newTempMin;
 
     let tempNowLine = document.querySelector("#temp-now");
-    let nextMaxTempLine = document.querySelector("#maxTemp-today");
-    let nextMinTempLine = document.querySelector("#minTemp-today");
+    let newMaxTempLine = document.querySelector("#maxTemp-today");
+    let newMinTempLine = document.querySelector("#minTemp-today");
 
     tempNowLine.innerHTML = fahrenheitTemp;
-    nextMaxTempLine.innerHTML = fahrenheitTempMax;
-    nextMinTempLine.innerHTML = fahrenheitTempMin;
+    newMaxTempLine.innerHTML = fahrenheitTempMax;
+    newMinTempLine.innerHTML = fahrenheitTempMin;
   }
 
   let description = response.data.weather[0].description;
@@ -207,13 +229,8 @@ function searchCity(event) {
   let searchInput = document.querySelector("#city-search-bar");
   let newCity = searchInput.value;
   let apiKey = "aeba3e6df17f742792c4f3a90b3720ad";
-  let unitNowLine = document.querySelector("#unit-now");
-  let unit = "";
-  if (unitNowLine.innerHTML === "℃") {
-    unit = "metric";
-  } else {
-    unit = "imperial";
-  }
+  let unit = decideUnit();
+
   let urlWeatherAPI = `https://api.openweathermap.org/data/2.5/weather?q=${newCity}&appid=${apiKey}&units=${unit}`;
   axios.get(urlWeatherAPI).then(displayTemperature);
 }
@@ -222,14 +239,8 @@ function retrieveLocation(position) {
   let latitude = position.coords.latitude;
   let longitude = position.coords.longitude;
   let apiKey = "aeba3e6df17f742792c4f3a90b3720ad";
-  let unitNowLine = document.querySelector("#unit-now");
-  let unit = null;
+  let unit = decideUnit();
 
-  if (unitNowLine.innerHTML === "℃") {
-    unit = "metric";
-  } else {
-    unit = "imperial";
-  }
   let urlWeatherAPI = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}&units=${unit}`;
   axios.get(urlWeatherAPI).then(displayTemperature);
 }
@@ -241,7 +252,9 @@ function useLocation(event) {
 function defaultScreen() {
   let apiKey = "aeba3e6df17f742792c4f3a90b3720ad";
   let city = "Vancouver";
-  let urlWeatherAPI = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+  let unit = "metric";
+
+  let urlWeatherAPI = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=${unit}`;
   axios.get(urlWeatherAPI).then(displayTemperature);
   let unitNowLine = document.querySelector("#unit-now");
   unitNowLine.innerHTML = "℃";
