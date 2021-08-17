@@ -110,15 +110,7 @@ function convertDate(timestamp) {
 
 function displayForecast(response) {
   console.log(response);
-  let forecast = response.data.daily[0];
-  let date = convertDate(forecast.dt);
-  let weekday = convertWeekday(forecast.dt);
-
-  let maxTemp = Math.round(forecast.temp.max);
-  let minTemp = Math.round(forecast.temp.min);
-
-  let symbolNext = `https://openweathermap.org/img/wn/${forecast.weather[0].icon}@2x.png`;
-  let description = forecast.weather[0].desription;
+  let forecast = response.data.daily;
 
   let unit = decideUnit();
   if (unit === "metric") {
@@ -128,27 +120,35 @@ function displayForecast(response) {
   }
 
   let forecastLine = document.querySelector("#forecast");
-  let forecastHTML = "";
-  forecastHTML += `<div class="row next-day-all">
-          <div class="col next-day">
-            <div id="weekday-next">${weekday}</div>
-            <div id="date-next">${date}</div>
+  let forecastHTML = `<div class="row">`;
+
+  forecast.forEach(function (forecastDay, index) {
+    if (index >= 1 && index <= 6) {
+      forecastHTML += `<div class="col next-day-all">
+      <div class="next-day">
+            <div id="weekday-next">${convertWeekday(forecastDay.dt)}</div>
+            <div id="date-next">${convertDate(forecastDay.dt)}</div>
           </div>
-        </div>
-         
-        <div class="row next-symbol-all">
-          <div class="col"><img src="${symbolNext}" alt="${description}" id="symbol-next" /></div>
-        </div>
 
-        <div class="row next-mm-all">
-          <div class="col next-mm">max/min</div>
-        </div>
+          <div><img src="${`https://openweathermap.org/img/wn/${forecastDay.weather[0].icon}@2x.png`}" alt="${
+        forecastDay.weather[0].description
+      }" width="50" id="symbol-next" /></div>
+          <div class="description description-next">${
+            forecastDay.weather[0].description
+          }</div>      
+          <div class="next-mm-all">max/min</div>      
+          <div class="next-mmTemp-all">
+            <span id="max-next">${Math.round(
+              forecastDay.temp.max
+            )}</span><span id="unit-maxTemp-next">${unit}</span><span>/ </span>
+            <span id="min-next">${Math.round(
+              forecastDay.temp.min
+            )}</span><span id="unit-minTemp-next">${unit}</span></div>
+            </div>`;
+    }
+  });
 
-        <div class="row next-mmTemp-all">
-          <div class="col next-mmTemp">
-            <span id="max-next">${maxTemp}</span><span id="unit-maxTemp-next">${unit}</span><span>/ </span>
-            <span id="min-next">${minTemp}</span><span id="unit-minTemp-next">${unit}</span></div>`;
-
+  forecastHTML += `</div>`;
   forecastLine.innerHTML = forecastHTML;
 }
 

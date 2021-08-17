@@ -2,13 +2,30 @@ body {
   text-align: center;
   display: block;
   margin: 0 auto;
-  background: #50c4ed;
 }
 
 header,
 section,
 footer {
-  padding: 25px;
+  padding: 20px;
+}
+
+header {
+  padding-top: 10px;
+  padding-bottom: 15px;
+  background: #73ccec;
+  margin-top: 10px;
+}
+section {
+  background: #50c4ed;
+  padding: 15px;
+}
+footer {
+  background: #2caedd;
+  font-size: 17px;
+  padding-top: 15px;
+  padding-bottom: 5px;
+  margin-bottom: 10px;
 }
 
 h1,
@@ -19,19 +36,22 @@ footer,
 .mm-today,
 .mmTemp-today,
 .next-day,
-.next-mm,
-.next-mmTemp {
+.next-mm-all,
+.next-mmTemp-all {
   font-family: "Raleway", sans-serif;
 }
 
 h1,
 h2 {
   text-decoration: underline;
-  padding-bottom: 15px;
 }
 
-footer {
-  font-size: 17px;
+h1 {
+  padding-bottom: 5px;
+}
+
+h2 {
+  padding-bottom: 15px;
 }
 
 ul {
@@ -50,7 +70,7 @@ li {
 
 .symbol-now {
   font-size: 55px;
-  padding: 10px;
+  padding: 0 10px 0;
   min-width: fit-content;
 }
 
@@ -74,12 +94,23 @@ li {
   line-height: 0.5cm;
 }
 
-#description {
+#weekday-next {
+  font-weight: 600;
+}
+
+.description {
+  text-transform: capitalize;
   padding-bottom: 10px;
+}
+
+.description-next {
+  font-weight: 450;
+}
+
+#description {
   font-size: 20px;
   font-weight: 600;
   font-style: normal;
-  text-transform: capitalize;
 }
 
 .city {
@@ -100,18 +131,17 @@ li {
   margin-top: 15px;
 }
 
-.next-day-all,
+.next-day,
 .next-mm-all,
 .next-mmTemp-all {
   line-height: 0.5cm;
   min-width: fit-content;
 }
 
-.next-mm,
-.next-mmTemp {
+.next-mm-all,
+.next-mmTemp-all {
   font-size: 15px;
   font-style: italic;
-  line-height: 0.5cm;
 }
 
 .next-mm-all {
@@ -124,6 +154,8 @@ li {
 
 .searchHeader {
   margin-right: 155px;
+  color: #fff;
+  font-style: italic;
 }
 
 .searchBar {
@@ -160,8 +192,14 @@ li {
 .credit {
   font-size: 10px;
   text-align: left;
+  color: #fff;
 }
 
 .git-link {
   text-decoration-line: none;
+  color: #fce850;
+}
+
+.git-link:hover {
+  color: #ffb900;
 }
