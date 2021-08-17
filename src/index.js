@@ -169,6 +169,8 @@ function displayForecast(response) {
 
   forecastHTML += `</div>`;
   forecastLine.innerHTML = forecastHTML;
+
+  getDate();
 }
 
 function getForecast(coordinates) {
@@ -182,8 +184,6 @@ function getForecast(coordinates) {
 }
 
 function displayTemperature(response) {
-  console.log(response);
-
   let newTemp = Math.round(response.data.main.temp);
   let newTempMax = Math.round(response.data.main.temp_max);
   let newTempMin = Math.round(response.data.main.temp_min);
@@ -247,7 +247,6 @@ function displayTemperature(response) {
 
 function searchCity(event) {
   event.preventDefault();
-  getDate();
   let searchInput = document.querySelector("#city-search-bar");
   let newCity = searchInput.value;
   let apiKey = "aeba3e6df17f742792c4f3a90b3720ad";
@@ -304,5 +303,8 @@ celsiusButton.addEventListener("click", changeToCelsius);
 
 defaultScreen();
 
-// (get Time from API)
+//possible improvements:
+// (get time from API + add time zone conversion)
 // (remove unnecessary classes [HTML])
+// (simplify/streamline code)
+// (change background header depending on weather)
