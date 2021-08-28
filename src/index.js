@@ -85,6 +85,13 @@ function changeToFahrenheit(event) {
   tempNowMaxLine.innerHTML = fahrenheitTempMax;
   tempNowMinLine.innerHTML = fahrenheitTempMin;
 
+  let windSpeedLine = document.querySelector("#windSpeed");
+  let windSpeedUnitLine = document.querySelector("#windSpeedUnit");
+
+  windSpeedImperial = windSpeedMetric * 2.2369;
+  windSpeedLine.innerHTML = windSpeedImperial.toFixed(1);
+  windSpeedUnitLine.innerHTML = "mph";
+
   convertForecast();
 }
 
@@ -108,6 +115,13 @@ function changeToCelsius(event) {
   tempNowLine.innerHTML = celsiusTemp;
   tempNowMaxLine.innerHTML = celsiusTempMax;
   tempNowMinLine.innerHTML = celsiusTempMin;
+
+  let windSpeedLine = document.querySelector("#windSpeed");
+  let windSpeedUnitLine = document.querySelector("#windSpeedUnit");
+
+  windSpeedMetric = windSpeedImperial / 2.2369;
+  windSpeedLine.innerHTML = windSpeedMetric.toFixed(1);
+  windSpeedUnitLine.innerHTML = "m/s";
 
   convertForecast();
 }
@@ -142,7 +156,7 @@ function displayForecast(response) {
   let forecastHTML = `<div class="row">`;
 
   forecast.forEach(function (forecastDay, index) {
-    if (index >= 1 && index <= 6) {
+    if (index >= 1 && index <= 5) {
       forecastHTML += `<div class="col next-day-all">
       <div class="next-day">
             <div id="weekday-next">${convertWeekday(forecastDay.dt)}</div>
@@ -188,44 +202,47 @@ function displayTemperature(response) {
   let newTempMax = Math.round(response.data.main.temp_max);
   let newTempMin = Math.round(response.data.main.temp_min);
 
+  let tempNowLine = document.querySelector("#temp-now");
+  let newMaxTempLine = document.querySelector("#maxTemp-today");
+  let newMinTempLine = document.querySelector("#minTemp-today");
+
+  let windSpeed = response.data.wind.speed;
+  let windSpeedLine = document.querySelector("#windSpeed");
+  let windSpeedUnitLine = document.querySelector("#windSpeedUnit");
+
   let unitNowLine = document.querySelector("#unit-now");
   if (unitNowLine.innerHTML === "℃") {
     celsiusTemp = newTemp;
     celsiusTempMax = newTempMax;
     celsiusTempMin = newTempMin;
-
-    let tempNowLine = document.querySelector("#temp-now");
-    let newMaxTempLine = document.querySelector("#maxTemp-today");
-    let newMinTempLine = document.querySelector("#minTemp-today");
+    windSpeedMetric = windSpeed;
 
     tempNowLine.innerHTML = celsiusTemp;
     newMaxTempLine.innerHTML = celsiusTempMax;
     newMinTempLine.innerHTML = celsiusTempMin;
+    windSpeedLine.innerHTML = windSpeedMetric.toFixed(1);
+    windSpeedUnitLine.innerHTML = "m/s";
   } else {
     fahrenheitTemp = newTemp;
     fahrenheitTempMax = newTempMax;
     fahrenheitTempMin = newTempMin;
-
-    let tempNowLine = document.querySelector("#temp-now");
-    let newMaxTempLine = document.querySelector("#maxTemp-today");
-    let newMinTempLine = document.querySelector("#minTemp-today");
+    windSpeedImperial = windSpeed;
 
     tempNowLine.innerHTML = fahrenheitTemp;
     newMaxTempLine.innerHTML = fahrenheitTempMax;
     newMinTempLine.innerHTML = fahrenheitTempMin;
+    windSpeedLine.innerHTML = windSpeedImperial.toFixed(1);
+    windSpeedUnitLine.innerHTML = "mph";
   }
 
   let description = response.data.weather[0].description;
   let humidity = response.data.main.humidity;
-  let windSpeed = response.data.wind.speed;
 
   let descriptionLine = document.querySelector("#description");
   let humidityLine = document.querySelector("#humidity");
-  let windSpeedLine = document.querySelector("#windSpeed");
 
   descriptionLine.innerHTML = description;
   humidityLine.innerHTML = humidity;
-  windSpeedLine.innerHTML = windSpeed.toFixed(1);
 
   let symbolCode = response.data.weather[0].icon;
   let symbolURL = `http://openweathermap.org/img/wn/${symbolCode}@2x.png`;
@@ -289,6 +306,9 @@ let celsiusTempMin = null;
 let fahrenheitTemp = null;
 let fahrenheitTempMax = null;
 let fahrenheitTempMin = null;
+
+let windSpeedMetric = null;
+let windSpeedImperial = null;
 
 let currentLocationButton = document.querySelector("#current-location");
 currentLocationButton.addEventListener("click", useLocation);
