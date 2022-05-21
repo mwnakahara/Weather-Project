@@ -221,7 +221,7 @@ function displayTemperature(response) {
     newMaxTempLine.innerHTML = celsiusTempMax;
     newMinTempLine.innerHTML = celsiusTempMin;
     windSpeedLine.innerHTML = windSpeedMetric.toFixed(1);
-    windSpeedUnitLine.innerHTML = "m/s";
+    windSpeedUnitLine.innerHTML = "km/h";
   } else {
     fahrenheitTemp = newTemp;
     fahrenheitTempMax = newTempMax;
