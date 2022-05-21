@@ -121,7 +121,7 @@ function changeToCelsius(event) {
 
   windSpeedMetric = windSpeedImperial / 2.2369;
   windSpeedLine.innerHTML = windSpeedMetric.toFixed(1);
-  windSpeedUnitLine.innerHTML = "m/s";
+  windSpeedUnitLine.innerHTML = "km/h";
 
   convertForecast();
 }
