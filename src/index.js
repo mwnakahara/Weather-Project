@@ -96,34 +96,37 @@ function changeToFahrenheit(event) {
 }
 
 function changeToCelsius(event) {
-  let unitNowLine = document.querySelector("#unit-now");
-  let unitNowMaxLine = document.querySelector("#unit-maxTemp-today");
-  let unitNowMinLine = document.querySelector("#unit-minTemp-today");
+  if (fahrenheitTemp === null) {
+  } else {
+    let unitNowLine = document.querySelector("#unit-now");
+    let unitNowMaxLine = document.querySelector("#unit-maxTemp-today");
+    let unitNowMinLine = document.querySelector("#unit-minTemp-today");
 
-  unitNowLine.innerHTML = "℃";
-  unitNowMaxLine.innerHTML = "℃";
-  unitNowMinLine.innerHTML = "℃";
+    unitNowLine.innerHTML = "℃";
+    unitNowMaxLine.innerHTML = "℃";
+    unitNowMinLine.innerHTML = "℃";
 
-  let tempNowLine = document.querySelector("#temp-now");
-  let tempNowMaxLine = document.querySelector("#maxTemp-today");
-  let tempNowMinLine = document.querySelector("#minTemp-today");
+    let tempNowLine = document.querySelector("#temp-now");
+    let tempNowMaxLine = document.querySelector("#maxTemp-today");
+    let tempNowMinLine = document.querySelector("#minTemp-today");
 
-  celsiusTemp = Math.round(((fahrenheitTemp - 32) * 5) / 9);
-  celsiusTempMax = Math.round(((fahrenheitTempMax - 32) * 5) / 9);
-  celsiusTempMin = Math.round(((fahrenheitTempMin - 32) * 5) / 9);
+    celsiusTemp = Math.round(((fahrenheitTemp - 32) * 5) / 9);
+    celsiusTempMax = Math.round(((fahrenheitTempMax - 32) * 5) / 9);
+    celsiusTempMin = Math.round(((fahrenheitTempMin - 32) * 5) / 9);
 
-  tempNowLine.innerHTML = celsiusTemp;
-  tempNowMaxLine.innerHTML = celsiusTempMax;
-  tempNowMinLine.innerHTML = celsiusTempMin;
+    tempNowLine.innerHTML = celsiusTemp;
+    tempNowMaxLine.innerHTML = celsiusTempMax;
+    tempNowMinLine.innerHTML = celsiusTempMin;
 
-  let windSpeedLine = document.querySelector("#windSpeed");
-  let windSpeedUnitLine = document.querySelector("#windSpeedUnit");
+    let windSpeedLine = document.querySelector("#windSpeed");
+    let windSpeedUnitLine = document.querySelector("#windSpeedUnit");
 
-  windSpeedMetric = windSpeedImperial / 2.2369;
-  windSpeedLine.innerHTML = windSpeedMetric.toFixed(1);
-  windSpeedUnitLine.innerHTML = "km/h";
+    windSpeedMetric = windSpeedImperial / 2.2369;
+    windSpeedLine.innerHTML = windSpeedMetric.toFixed(1);
+    windSpeedUnitLine.innerHTML = "km/h";
 
-  convertForecast();
+    convertForecast();
+  }
 }
 
 function convertForecast() {
