@@ -195,11 +195,13 @@ li {
   color: #fff;
 }
 
-.git-link {
+.git-link,
+.email-link {
   text-decoration-line: none;
   color: #fce850;
 }
 
-.git-link:hover {
+.git-link:hover,
+.email-link:hover {
   color: #ffb900;
 }
